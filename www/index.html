@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Учёт явки — 26л-02</title>
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f3f5f7;--card:#fff;--ink:#16222e;--mut:#667583;--line:#dde3e8;--ac:#0d6e6e;--acs:#d9efee;--u:#b3261e;--us:#fbe4e2;--e:#9a6200;--es:#fbefd3;--q:#5d6b78;--qs:#e6eaee;color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#10171d;--card:#18222b;--ink:#e8eef2;--mut:#97a6b3;--line:#2a3945;--ac:#4cc3c0;--acs:#173a3b;--u:#ff8f86;--us:#40201e;--e:#f0b94d;--es:#3b2d10;--q:#a9b6c1;--qs:#26323c;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#10171d;--card:#18222b;--ink:#e8eef2;--mut:#97a6b3;--line:#2a3945;--ac:#4cc3c0;--acs:#173a3b;--u:#ff8f86;--us:#40201e;--e:#f0b94d;--es:#3b2d10;--q:#a9b6c1;--qs:#26323c;color-scheme:dark}
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.45 Onest,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+button,input,select{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
+.wrap{max-width:760px;margin:0 auto;padding:16px 14px 90px}
+.top{display:flex;gap:12px;align-items:flex-start;justify-content:space-between}
+h1{font-size:22px;line-height:1.2;margin:0}
+.sub{color:var(--mut);font-size:14px;margin-top:2px}
+.btn{border:1px solid var(--line);background:var(--card);border-radius:10px;padding:9px 14px;font-weight:500}
+.btn.pri{background:var(--ac);border-color:var(--ac);color:#fff}
+:root[data-theme="dark"] .btn.pri{color:#06201f}
+.tabs{display:flex;gap:4px;margin:16px 0;border-bottom:1px solid var(--line)}
+.tab{border:0;background:none;padding:10px 14px;font-weight:500;color:var(--mut);border-bottom:3px solid transparent;margin-bottom:-1px}
+.tab[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--ac)}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px}
+.form{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.form label{display:block;font-size:13px;color:var(--mut);margin-bottom:3px}
+.form .full{grid-column:1/-1}
+.form input,.form select{width:100%;border:1px solid var(--line);background:var(--bg);border-radius:8px;padding:9px 10px}
+.seg{display:flex;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.seg button{flex:1;border:0;background:var(--bg);padding:9px}
+.seg button[aria-pressed="true"]{background:var(--ac);color:#fff}
+:root[data-theme="dark"] .seg button[aria-pressed="true"]{color:#06201f}
+.hint{font-size:13px;color:var(--mut);margin:12px 2px 8px}
+.row{display:flex;width:100%;justify-content:space-between;align-items:center;gap:10px;text-align:left;border:1px solid var(--line);background:var(--card);border-radius:10px;padding:11px 12px;margin-bottom:6px}
+.row .st{font-size:13px;font-weight:500;border-radius:20px;padding:2px 10px;background:var(--acs);color:var(--ac);white-space:nowrap}
+.row.u{border-color:var(--u);background:var(--us)}.row.u .st{background:var(--u);color:#fff}
+.row.e{border-color:var(--e);background:var(--es)}.row.e .st{background:var(--e);color:#fff}
+:root[data-theme="dark"] .row.u .st,:root[data-theme="dark"] .row.e .st{color:#1a1206}
+.pb{border:1px solid var(--line);background:var(--bg);border-radius:8px;padding:8px 12px;font-size:14px;font-weight:500;min-width:84px}.pb.on.u{background:var(--u);border-color:var(--u);color:#fff}.pb.on.e{background:var(--e);border-color:var(--e);color:#fff}.acts{display:flex;gap:6px}.nm2{flex:1}.gt{width:100%;height:340px;border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:8px;padding:8px;font:inherit}.period{display:flex;gap:6px;margin-bottom:12px;align-items:center}.period input{border:1px solid var(--line);background:var(--card);border-radius:8px;padding:7px 8px;flex:1;min-width:0}.bs{display:flex;justify-content:space-between;font-weight:500;padding-top:8px}.sm{color:var(--mut);font-size:13px}h2{font-size:16px;margin:18px 0 4px}.bar{position:fixed;left:0;right:0;bottom:0;background:var(--card);border-top:1px solid var(--line);padding:10px 14px calc(10px + env(safe-area-inset-bottom,0px));display:flex;gap:10px;justify-content:center}
+.bar .btn{flex:1;max-width:340px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+.stat b{display:block;font-size:22px}.stat span{font-size:13px;color:var(--mut)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;margin-bottom:8px;overflow:hidden}
+.ch{display:flex;align-items:center;gap:10px;padding:12px;width:100%;border:0;background:none;text-align:left}
+.ch .nm{flex:1;font-weight:500}
+.big{font-size:20px;font-weight:700}
+.chips{display:flex;flex-wrap:wrap;gap:6px;padding:0 12px 12px}
+.chip{font-size:13px;border-radius:20px;padding:2px 10px;background:var(--qs);color:var(--q)}
+.chip.u{background:var(--us);color:var(--u)}.chip.e{background:var(--es);color:var(--e)}.chip.ok{background:var(--acs);color:var(--ac)}
+.recs{border-top:1px solid var(--line);padding:6px 12px 12px}
+.rec{display:grid;grid-template-columns:96px 96px 1fr;gap:6px 8px;align-items:center;padding:8px 0;border-bottom:1px dashed var(--line)}
+.rec input{border:1px solid var(--line);background:var(--bg);border-radius:8px;padding:6px 8px;width:100%;min-width:0}
+.rec .mini{border:1px solid var(--line);background:var(--bg);border-radius:8px;padding:6px 8px;font-size:14px}
+.rec .r2{grid-column:1/-1;display:flex;gap:6px;align-items:center;justify-content:space-between}
+.mini.u{color:var(--u);border-color:var(--u)}.mini.e{color:var(--e);border-color:var(--e)}
+.empty{color:var(--mut);padding:8px 0;font-size:14px}
+.foot{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
+.toast{position:fixed;left:50%;bottom:84px;transform:translate(-50%,14px);background:var(--ink);color:var(--bg);padding:9px 16px;border-radius:20px;font-size:14px;opacity:0;pointer-events:none;transition:opacity .2s,transform .25s}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+.ov{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;padding:16px}
+.ov.on{display:flex}
+.ov .box{background:var(--card);border-radius:12px;padding:14px;width:100%;max-width:520px}
+.ov textarea{width:100%;height:260px;border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:8px;padding:8px;font:14px/1.4 inherit}
+@media (max-width:480px){.form{grid-template-columns:1fr}.top{flex-direction:column}}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.rise{animation:rise .45s cubic-bezier(.2,.8,.2,1) backwards}
+@keyframes popr{0%{transform:scale(1)}40%{transform:scale(1.035)}100%{transform:scale(1)}}
+.row.pop{animation:popr .28s ease}
+@keyframes grow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+.meter{height:5px;background:var(--qs);margin:0 12px 12px;border-radius:5px;overflow:hidden}.meter i{display:block;height:100%;background:linear-gradient(90deg,var(--ac),var(--e),var(--u));transform-origin:left;animation:grow .8s .2s cubic-bezier(.2,.8,.2,1) both}
+.card,.row,.pb,.btn{transition:transform .15s,box-shadow .2s,background .2s,border-color .2s}
+.card:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(0,0,0,.08)}
+.pb:active,.btn:active{transform:scale(.95)}
+.tab{transition:color .2s,border-color .2s}
+.burst{position:fixed;left:50%;top:42%;width:0;height:0;pointer-events:none;z-index:50}
+.burst svg{position:absolute;left:-42px;top:-42px;animation:pop2 .9s ease both}
+.burst path{stroke-dasharray:1;stroke-dashoffset:1;animation:draw .4s .25s ease forwards}
+.burst i{position:absolute;width:8px;height:8px;border-radius:50%;animation:fly .9s ease-out forwards}
+@keyframes pop2{0%{transform:scale(0)}35%{transform:scale(1.15)}55%{transform:scale(1)}85%{opacity:1}100%{transform:scale(1);opacity:0}}
+@keyframes draw{to{stroke-dashoffset:0}}
+@keyframes fly{from{transform:translate(0,0) scale(1);opacity:1}to{transform:translate(var(--x),var(--y)) scale(.3);opacity:0}}
+@media (min-width:900px){.wrap{max-width:900px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <div><h1>Учёт явки</h1><div class="sub">Группа 26л-02 · 31.05.01 «Лечебное дело» · 1 курс</div></div>
+    <button class="btn pri" data-act="shareAll">Поделиться всем</button>
+  </div>
+  <div class="tabs" role="tablist">
+    <button class="tab" role="tab" data-act="tab" data-v="mark">Отметить пару</button>
+    <button class="tab" role="tab" data-act="tab" data-v="sum">Сводки</button>
+    <button class="tab" role="tab" data-act="tab" data-v="grp">Группа</button>
+  </div>
+  <div id="app"></div>
+</div>
+<div class="toast" id="toast"></div>
+<div class="ov" id="ov"><div class="box"><div class="hint" style="margin-top:0">Не удалось открыть меню отправки. Скопируйте текст вручную:</div><textarea id="ta" readonly></textarea><div class="foot"><button class="btn pri" data-act="closeOv">Закрыть</button></div></div></div>
+<script src="https://cdn.jsdelivr.net/npm/exceljs@4.4.0/dist/exceljs.min.js" defer></script>
+<script>
+let NAMES=["Аккиреева Дарина Булатовна", "Бурханов Дамир Азатович", "Васильева Ульяна Сергеевна", "Вяткин Данил Александрович", "Жантлисова Элина Данияровна", "Иванова Анна Владимировна", "Кужина Ева Ишбулдовна", "Мажаев Роман Сергеевич", "Мусиев Айдар Альбекович", "Полкунова Александра Игоревна", "Разумова Полина Сергеевна", "Тюлегенова Самира Жикписбаева", "Утеньязов Азамат Темиргалиевич", "Фомина Анастасия Евгеньевна", "Халилова Амелия Роллановна", "Шарипов Батырхан Айратович"];
+const KEY="attendance-26l02-oct-v2";
+const TYPES={lec:"лекция",sem:"семинар",unk:"тип не указан"};
+const ST={u:"неуважительно",e:"уважительно","?":"причина не указана"};
+let S={recs:[],uid:1};
+const iso=d=>d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+const ui={tab:"mark",date:iso(new Date()),ym:iso(new Date()).slice(0,7),detail:null,type:"lec",subject:"",pairs:1,marks:{},open:{}};
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const dstr=d=>new Date(d+"T00:00:00").toLocaleDateString("ru-RU",{day:"numeric",month:"short",year:"numeric"}).replace(" г.","");
+const periodLabel=()=>ui.ym?new Date(ui.ym+"-01T00:00:00").toLocaleDateString("ru-RU",{month:"long",year:"numeric"}):"весь период";
+function seed(){return {recs:[],uid:1,names:NAMES}}
+function load(){try{const j=localStorage.getItem(KEY);if(j){S=JSON.parse(j);if(S.names&&S.names.length)NAMES=S.names;S.recs.forEach(x=>{if(!x.date)x.date="2026-10-"+String(x.day).padStart(2,"0")});return}}catch(e){}S=seed()}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
+function toast(t){const e=$("#toast");e.textContent=t;e.classList.add("on");clearTimeout(toast.t);toast.t=setTimeout(()=>e.classList.remove("on"),1800)}
+function sums(i,ym=ui.ym){const r=S.recs.filter(x=>x.i===i&&(!ym||x.date.startsWith(ym)));const h=s=>r.filter(x=>x.status===s).reduce((a,x)=>a+x.hours,0);return {r:r.sort((a,b)=>a.date.localeCompare(b.date)),all:r.reduce((a,x)=>a+x.hours,0),u:h("u"),e:h("e"),q:h("?")}}
+function loadMarks(){ui.marks={};const sub=ui.subject.trim().toLowerCase();S.recs.forEach(x=>{if(x.date===ui.date&&x.type===ui.type&&x.subject.toLowerCase()===sub){ui.marks[x.i]=x.status;ui.pairs=Math.max(1,Math.min(4,x.hours/2))}})}
+const pairsWord=n=>{const m=n%10,c=n%100;return n+" "+(m===1&&c!==11?"пара":(m>=2&&m<=4&&(c<12||c>14)?"пары":"пар"))};
+function recLine(x){return "  • "+dstr(x.date)+", "+TYPES[x.type]+", "+(x.subject||"предмет не указан")+" — "+x.hours+" ч ("+pairsWord(x.hours/2)+"), "+ST[x.status]}
+function textFor(i){
+  const s=sums(i);
+  let t=NAMES[i]+" — "+periodLabel()+"\nПропущено: "+s.all+" ч ("+pairsWord(s.all/2)+")";
+  if(s.all){t+="\nуважительно: "+s.e+" ч, неуважительно: "+s.u+" ч"+(s.q?", не указано: "+s.q+" ч":"")+"\n"+s.r.map(recLine).join("\n")}
+  return t;
+}
+function textAll(){
+  const tot=NAMES.reduce((a,_,i)=>a+sums(i).all,0);
+  let t="Явка, группа 26л-02, "+periodLabel()+"\nВсего пропущено: "+tot+" ч ("+pairsWord(tot/2)+"). 1 пара = 2 академических часа.\n";
+  NAMES.forEach((_,i)=>{if(sums(i).all)t+="\n"+textFor(i)+"\n"});
+  const clean=NAMES.filter((_,i)=>!sums(i).all);
+  if(clean.length)t+="\nБез пропусков: "+clean.join(", ");
+  return t.trim();
+}
+
+const SPEC="31.05.01 «Лечебное дело»",GROUP="26л-02",MN=["январь","февраль","март","апрель","май","июнь","июль","август","сентябрь","октябрь","ноябрь","декабрь"];
+const b64=buf=>{let s="";const u=new Uint8Array(buf);for(let i=0;i<u.length;i+=32768)s+=String.fromCharCode.apply(null,u.subarray(i,i+32768));return btoa(s)};
+async function buildXlsx(months,idx){
+  const wb=new ExcelJS.Workbook(),th={style:"thin"},bd={top:th,left:th,bottom:th,right:th},ct={horizontal:"center",vertical:"middle",wrapText:true};
+  const col=n=>{let s="";while(n>0){const m=(n-1)%26;s=String.fromCharCode(65+m)+s;n=(n-m-1)/26}return s};
+  months.forEach(ym=>{
+    const [y,m]=ym.split("-").map(Number),ws=wb.addWorksheet("Ведомость "+ym);
+    ws.mergeCells("A1:AJ1");const h=ws.getCell("A1");h.value="ВЕДОМОСТЬ УЧЕТА ПОСЕЩАЕМОСТИ ЛЕКЦИОННЫХ И ПРАКТИЧЕСКИХ ЗАНЯТИЙ";h.font={bold:true,size:13};h.alignment=ct;
+    [["B3","Специальность"],["C3",SPEC],["O3",1],["P3","курс"],["R3",GROUP],["T3","группа"],["W3","за"],["X3",MN[m-1].toUpperCase()],["AC3",(m>=9?y:y-1)+"-"+(m>=9?y+1:y)]].forEach(([a,v])=>ws.getCell(a).value=v);
+    ws.mergeCells("A5:A6");ws.mergeCells("B5:B6");ws.mergeCells("C5:AG5");ws.mergeCells("AH5:AH6");ws.mergeCells("AI5:AJ5");
+    ws.getCell("A5").value="№ п/п";ws.getCell("B5").value="ФИО учащихся";ws.getCell("C5").value="Числа месяца";ws.getCell("AH5").value="Итого";ws.getCell("AI5").value="Из них по причинам";ws.getCell("AI6").value="уваж.";ws.getCell("AJ6").value="неуваж.";
+    for(let d=1;d<=31;d++)ws.getCell(6,2+d).value=d;
+    idx.forEach((i,k)=>{
+      const r=7+k,rc=S.recs.filter(x=>x.i===i&&x.date.startsWith(ym)),days={};
+      rc.forEach(x=>{const d=+x.date.slice(8);(days[d]=days[d]||{lec:0,sem:0,unk:0})[x.type]+=x.hours});
+      ws.getCell(r,1).value=k+1;ws.getCell(r,2).value=NAMES[i];
+      Object.entries(days).forEach(([d,v])=>{ws.getCell(r,2+ +d).value=(v.lec||v.sem)?v.lec+"/"+v.sem+(v.unk?"+"+v.unk:""):String(v.unk)});
+      const sm=s=>rc.filter(x=>x.status===s).reduce((a,x)=>a+x.hours,0),tot=rc.reduce((a,x)=>a+x.hours,0);
+      if(tot){ws.getCell(r,34).value=tot;ws.getCell(r,35).value=sm("e")||null;ws.getCell(r,36).value=sm("u")||null}
+    });
+    const end=6+Math.max(idx.length,1);
+    for(let r=5;r<=end;r++)for(let c=1;c<=36;c++){const x=ws.getCell(r,c);x.border=bd;if(c!==2||r<7)x.alignment=ct;if(r<7)x.font={bold:true}}
+    ws.getColumn(1).width=6;ws.getColumn(2).width=36;for(let c=3;c<=33;c++)ws.getColumn(c).width=5.5;ws.getColumn(34).width=8;ws.getColumn(35).width=8;ws.getColumn(36).width=10;
+    ws.getCell("B"+(end+2)).value="Староста";
+    ws.mergeCells("B"+(end+4)+":AI"+(end+4));const n=ws.getCell("B"+(end+4));n.alignment={wrapText:true,vertical:"top"};ws.getRow(end+4).height=48;
+    n.value="Примечание: указывается количество пропусков в часах (одна пара — 2 академических часа). Пропуски лекций и практических занятий через дробь, например 2/4: первая цифра — часы лекций, вторая — часы практических занятий.";
+    ws.views=[{state:"frozen",xSplit:2,ySplit:6}];ws.pageSetup={orientation:"landscape",fitToPage:true,fitToWidth:1,fitToHeight:0};
+  });
+  const dt=wb.addWorksheet("Подробно");
+  dt.addRow(["ФИО","Дата","Вид занятия","Предмет","Часы","Пар","Причина"]).font={bold:true};
+  idx.forEach(i=>S.recs.filter(x=>x.i===i&&months.includes(x.date.slice(0,7))).sort((a,b)=>a.date.localeCompare(b.date)).forEach(x=>dt.addRow([NAMES[i],dstr(x.date),TYPES[x.type],x.subject||"не указан",x.hours,x.hours/2,ST[x.status]])));
+  [34,14,16,26,8,6,22].forEach((w,k)=>dt.getColumn(k+1).width=w);
+  return wb.xlsx.writeBuffer();
+}
+async function shareXlsx(idx,label){
+  try{
+    if(!window.ExcelJS){toast("Библиотека Excel не загрузилась");return false}
+    let months=ui.ym?[ui.ym]:[...new Set(S.recs.filter(x=>idx.includes(x.i)).map(x=>x.date.slice(0,7)))].sort();
+    if(!months.length)months=[ui.ym||iso(new Date()).slice(0,7)];
+    const buf=await buildXlsx(months,idx),fname=("Явка_"+label+"_"+(ui.ym||"все_месяцы")+".xlsx").replace(/\s+/g,"_"),P=window.Capacitor&&window.Capacitor.Plugins;
+    if(P&&P.Filesystem&&P.Share){const w=await P.Filesystem.writeFile({path:fname,data:b64(buf),directory:"CACHE"});await P.Share.share({title:fname,files:[w.uri],dialogTitle:"Поделиться таблицей"});return true}
+    const f=new File([buf],fname,{type:"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"});
+    if(navigator.canShare&&navigator.canShare({files:[f]})){await navigator.share({files:[f],title:fname});return true}
+    const a=document.createElement("a");a.href=URL.createObjectURL(f);a.download=fname;document.body.appendChild(a);a.click();a.remove();toast("Таблица скачана");return true;
+  }catch(e){if(e&&(e.name==="AbortError"||/cancel/i.test(e.message||"")))return true;return false}
+}
+let animate=true;
+function countUp(el){const m=el.textContent.match(/^(\d+)(.*)$/);if(!m)return;const to=+m[1];if(!to||matchMedia("(prefers-reduced-motion:reduce)").matches)return;const t0=performance.now();(function f(t){const k=Math.min(1,(t-t0)/700);el.textContent=Math.round(to*(1-Math.pow(1-k,3)))+m[2];if(k<1)requestAnimationFrame(f)})(t0)}
+function fx(){
+  if(animate){document.querySelectorAll("#app .card,#app .row,#app .stat,#app .panel,#app .period,#app .hint").forEach((el,k)=>{el.classList.add("rise");el.style.animationDelay=Math.min(k,16)*32+"ms"});document.querySelectorAll("#app .big,#app .stat b").forEach(countUp)}
+  animate=false;ui.pop=null;
+}
+function burst(){if(matchMedia("(prefers-reduced-motion:reduce)").matches)return;const b=document.createElement("div");b.className="burst";b.innerHTML='<svg viewBox="0 0 52 52" width="84" height="84"><circle cx="26" cy="26" r="24" fill="var(--ac)"/><path d="M14 27l8 8 16-17" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" pathLength="1"/></svg>'+Array.from({length:16},(_,k)=>{const a=k/16*6.283,d=70+Math.random()*50;return `<i style="--x:${Math.cos(a)*d}px;--y:${Math.sin(a)*d}px;background:hsl(${k*23},80%,58%)"></i>`}).join("");document.body.appendChild(b);setTimeout(()=>b.remove(),1100)}
+async function share(text,title){
+  try{const C=window.Capacitor&&window.Capacitor.Plugins&&window.Capacitor.Plugins.Share;if(C){await C.share({title,text,dialogTitle:"Поделиться"});return}}catch(e){if(e&&/cancel/i.test(e.message||""))return}
+  try{if(navigator.share){await navigator.share({title,text});return}}catch(e){if(e&&e.name==="AbortError")return}
+  try{await navigator.clipboard.writeText(text);toast("Скопировано в буфер обмена");return}catch(e){}
+  $("#ta").value=text;$("#ov").classList.add("on");$("#ta").select();
+}
+function viewMark(){
+  const subs=[...new Set(S.recs.map(x=>x.subject).filter(Boolean))];
+  const n=Object.keys(ui.marks).length;
+  return `<div class="panel"><div class="form">
+    <div><label for="fd">Дата</label><input type="date" id="fd" data-f="date" value="${ui.date}"></div>
+    <div><label>Вид занятия</label><div class="seg"><button data-act="type" data-v="lec" aria-pressed="${ui.type==="lec"}">Лекция</button><button data-act="type" data-v="sem" aria-pressed="${ui.type==="sem"}">Семинар</button></div></div>
+    <div class="full"><label for="fs">Предмет</label><input id="fs" data-f="subject" list="subs" value="${esc(ui.subject)}" placeholder="Например: Анатомия"><datalist id="subs">${subs.map(s=>`<option value="${esc(s)}">`).join("")}</datalist></div>
+    <div class="full"><label for="fp">Сколько пар пропущено (1 пара = 2 академических часа)</label><select id="fp" data-f="pairs">${[1,2,3,4].map(p=>`<option value="${p}" ${ui.pairs===p?"selected":""}>${pairsWord(p)} = ${p*2} ч</option>`).join("")}</select></div>
+  </div></div>
+  <div class="hint">Отметьте только отсутствующих — остальные считаются присутствующими. Повторное нажатие снимает отметку. Отсутствуют: ${n} <button class="pb" data-act="allHere" style="min-width:0;margin-left:8px">Сбросить</button></div>
+  ${NAMES.map((nm,i)=>{const m=ui.marks[i];return `<div class="row ${m||""} ${ui.pop===i?"pop":""}"><span class="nm2">${esc(nm)}</span><span class="acts"><button class="pb ${m==="u"?"on u":""}" data-act="mu" data-i="${i}" aria-pressed="${m==="u"}">Неуваж.</button><button class="pb ${m==="e"?"on e":""}" data-act="me" data-i="${i}" aria-pressed="${m==="e"}">Уваж.</button></span></div>`}).join("")}
+  <div class="bar"><button class="btn pri" data-act="saveMarks">Сохранить пропуски${n?" ("+n+")":""}</button></div>`;
+}
+function period(){return `<div class="period"><button class="pb" data-act="pm" style="min-width:0" aria-label="Предыдущий месяц">‹</button><input type="month" data-f="ym" value="${ui.ym}" aria-label="Месяц"><button class="pb" data-act="nm" style="min-width:0" aria-label="Следующий месяц">›</button><button class="pb ${ui.ym?"":"on e"}" data-act="allp">Весь период</button></div>`}
+function chipsOf(s){return `${s.all?`<span class="chip">${pairsWord(s.all/2)}</span>`:`<span class="chip ok">без пропусков</span>`}${s.e?`<span class="chip e">уважительно ${s.e} ч</span>`:""}${s.u?`<span class="chip u">неуважительно ${s.u} ч</span>`:""}${s.q?`<span class="chip">причина не указана ${s.q} ч</span>`:""}`}
+function viewSum(){
+  const tot={all:0,u:0,e:0};
+  NAMES.forEach((_,i)=>{const s=sums(i);tot.all+=s.all;tot.u+=s.u;tot.e+=s.e});
+  const mx=Math.max(1,...NAMES.map((_,k)=>sums(k).all));const order=NAMES.map((n,i)=>i).sort((a,b)=>sums(b).all-sums(a).all||NAMES[a].localeCompare(NAMES[b],"ru"));
+  return period()+`<div class="stats"><div class="stat"><b>${tot.all} ч</b><span>всего пропущено</span></div><div class="stat"><b>${tot.u} ч</b><span>неуважительно</span></div><div class="stat"><b>${tot.e} ч</b><span>уважительно</span></div></div><div class="hint" style="margin-top:0">Нажмите на студента, чтобы увидеть подробности.</div>`+
+  order.map(i=>{const s=sums(i);return `<section class="card"><button class="ch" data-act="open" data-i="${i}"><span class="nm">${esc(NAMES[i])}</span><span class="big">${s.all} ч</span><span aria-hidden="true">›</span></button><div class="chips">${chipsOf(s)}</div><div class="meter"><i style="width:${Math.round(s.all/mx*100)}%"></i></div></section>`}).join("");
+}
+function viewDetail(){
+  const i=ui.detail,s=sums(i),g={};
+  s.r.forEach(x=>{const k=x.subject||"Предмет не указан";g[k]=g[k]||{h:0,lec:0,sem:0,unk:0};g[k].h+=x.hours;g[k][x.type]+=x.hours});
+  return `<button class="btn" data-act="back">‹ Все студенты</button><h1 style="margin:14px 0 2px">${esc(NAMES[i])}</h1><div class="sub" style="margin-bottom:10px">${periodLabel()}</div>`+period()+
+  `<div class="panel"><div class="big">${s.all} ч · ${pairsWord(s.all/2)}</div><div class="chips" style="padding:8px 0 0">${chipsOf(s)}</div></div>`+
+  (s.r.length?`<h2>По предметам</h2><div class="panel">${Object.entries(g).map(([k,v])=>`<div class="bs"><span>${esc(k)}</span><span>${v.h} ч · ${pairsWord(v.h/2)}</span></div><div class="sm">лекции ${v.lec} ч, семинары ${v.sem} ч${v.unk?", тип не указан "+v.unk+" ч":""}</div>`).join("")}</div><h2>Что и когда пропущено</h2><div class="recs" style="padding:0 0 8px">${s.r.map(x=>`<div class="rec"><b>${dstr(x.date)}</b><button class="mini" data-act="rtype" data-id="${x.id}">${TYPES[x.type]}</button><input data-f="rsub" data-id="${x.id}" value="${esc(x.subject)}" placeholder="Предмет" aria-label="Предмет"><div class="r2"><span>${x.hours} ч · ${pairsWord(x.hours/2)}</span><span><button class="mini ${x.status==="?"?"":x.status}" data-act="rstat" data-id="${x.id}">${ST[x.status]}</button> <button class="mini" data-act="rdel" data-id="${x.id}" aria-label="Удалить">✕</button></span></div></div>`).join("")}</div>`:`<div class="empty" style="margin-top:12px">За этот период пропусков нет.</div>`)+
+  `<div class="foot"><button class="btn pri" data-act="shareOne" data-i="${i}">Поделиться сводкой</button></div>`;
+}
+function viewGrp(){return `<div class="panel"><label class="hint" for="gn" style="display:block;margin-top:0">Список группы: одна фамилия на строку. Если удалить или переименовать строку, пропуски этого студента удалятся.</label><textarea id="gn" class="gt">${esc(NAMES.join("\n"))}</textarea><div class="foot"><button class="btn pri" data-act="saveNames">Сохранить список</button><button class="btn" data-act="clearAll">Очистить все пропуски</button></div></div>`}
+function render(){
+  document.querySelectorAll(".tab").forEach(t=>t.setAttribute("aria-selected",t.dataset.v===ui.tab));
+  const y=scrollY;$("#app").innerHTML=ui.tab==="mark"?viewMark():ui.tab==="grp"?viewGrp():ui.detail!=null?viewDetail():viewSum();scrollTo(0,y);fx();
+}
+document.addEventListener("click",e=>{
+  const b=e.target.closest("[data-act]");if(!b)return;
+  const a=b.dataset.act,i=+b.dataset.i,id=+b.dataset.id,r=S.recs.find(x=>x.id===id);
+  if(["tab","open","back","pm","nm","allp"].includes(a))animate=true;if(a==="mu"||a==="me")ui.pop=i;
+  if(a==="tab"){ui.tab=b.dataset.v;ui.detail=null;if(ui.tab==="mark")loadMarks()}
+  else if(a==="type"){ui.type=b.dataset.v;loadMarks()}
+  else if(a==="mark"){const m=ui.marks[i];if(!m)ui.marks[i]="u";else if(m==="u")ui.marks[i]="e";else delete ui.marks[i]}
+  else if(a==="mu"||a==="me"){const v=a==="mu"?"u":"e";if(ui.marks[i]===v)delete ui.marks[i];else ui.marks[i]=v}
+  else if(a==="allHere"){ui.marks={}}
+  else if(a==="saveNames"){const nn=$("#gn").value.split("\n").map(s=>s.trim()).filter(Boolean);if(!nn.length){toast("Список пуст");return}const map=NAMES.map(n=>nn.indexOf(n));const lost=S.recs.filter(x=>map[x.i]<0).length;if(lost&&!confirm("Будет удалено записей о пропусках: "+lost+". Продолжить?"))return;S.recs=S.recs.filter(x=>map[x.i]>=0).map(x=>({...x,i:map[x.i]}));NAMES=nn;S.names=nn;ui.marks={};save();toast("Список сохранён")}
+  else if(a==="clearAll"){if(confirm("Удалить все записи о пропусках?")){S.recs=[];ui.marks={};save();toast("Очищено")}}
+  else if(a==="saveMarks"){
+    const sub=ui.subject.trim(),n=Object.keys(ui.marks).length;
+    
+    S.recs=S.recs.filter(x=>!(x.date===ui.date&&x.type===ui.type&&x.subject.toLowerCase()===sub.toLowerCase()));
+    Object.entries(ui.marks).forEach(([k,st])=>S.recs.push({id:S.uid++,i:+k,date:ui.date,type:ui.type,subject:sub,hours:ui.pairs*2,status:st}));
+    save();toast("Сохранено. Отсутствуют: "+n);burst();
+  }
+  else if(a==="open"){ui.detail=i;scrollTo(0,0)}
+  else if(a==="back"){ui.detail=null}
+  else if(a==="pm"||a==="nm"){const [y,m]=(ui.ym||iso(new Date()).slice(0,7)).split("-").map(Number);ui.ym=iso(new Date(y,m-1+(a==="nm"?1:-1),1)).slice(0,7)}
+  else if(a==="allp"){ui.ym=ui.ym?"":iso(new Date()).slice(0,7)}
+  else if(a==="rtype"){r.type=r.type==="lec"?"sem":"lec";save()}
+  else if(a==="rstat"){r.status=r.status==="u"?"e":(r.status==="e"?"?":"u");save()}
+  else if(a==="rdel"){S.recs=S.recs.filter(x=>x.id!==id);save()}
+  else if(a==="shareOne"){shareXlsx([i],NAMES[i].split(" ")[0]).then(ok=>{if(!ok)share(textFor(i),NAMES[i])});return}
+  else if(a==="shareAll"){shareXlsx(NAMES.map((_,k)=>k),GROUP).then(ok=>{if(!ok)share(textAll(),"Явка 26л-02")});return}
+  else if(a==="closeOv"){$("#ov").classList.remove("on");return}
+  render();
+});
+document.addEventListener("input",e=>{
+  const f=e.target.dataset.f;if(!f)return;
+  if(f==="rsub"){const r=S.recs.find(x=>x.id===+e.target.dataset.id);r.subject=e.target.value;save();return}
+  if(f==="subject"){ui.subject=e.target.value;return}
+  if(f==="date"){ui.date=e.target.value;if(ui.date){loadMarks();render()}return}if(f==="ym"){ui.ym=e.target.value;animate=true;render();return}ui[f]=+e.target.value;
+});
+document.addEventListener("change",e=>{if(e.target.dataset.f==="subject"){loadMarks();render()}});
+load();loadMarks();render();
+</script>
+</body>
+</html>
